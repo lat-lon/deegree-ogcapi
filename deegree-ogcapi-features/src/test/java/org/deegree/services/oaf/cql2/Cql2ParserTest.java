@@ -22,8 +22,8 @@
 package org.deegree.services.oaf.cql2;
 
 import static java.util.Calendar.APRIL;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.xml.namespace.QName;
 import java.util.Calendar;
@@ -56,15 +56,15 @@ import org.deegree.geometry.primitive.LineString;
 import org.deegree.geometry.primitive.Point;
 import org.deegree.geometry.primitive.Polygon;
 import org.deegree.services.oaf.workspace.configuration.FilterProperty;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz </a>
  */
-public class Cql2ParserTest {
+class Cql2ParserTest {
 
 	@Test
-	public void test_parse_S_INTERSECTS_Point() throws UnknownCRSException {
+	void parse_s_intersects_point() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,POINT(36.319836 32.288087))";
 		Object visit = parseCql2(intersects);
 
@@ -72,17 +72,17 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof Point);
-		assertEquals(((Point) geometry).get(0), 36.319836, 0.0001);
-		assertEquals(((Point) geometry).get(1), 32.288087, 0.0001);
-		assertEquals(((Point) geometry).get(2), 0, 0.0001);
+		assertEquals(36.319836, ((Point) geometry).get(0), 0.0001);
+		assertEquals(32.288087, ((Point) geometry).get(1), 0.0001);
+		assertEquals(0, ((Point) geometry).get(2), 0.0001);
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_LineString() throws UnknownCRSException {
+	void parse_s_intersects_line_string() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,LINESTRING(36.319836 32.288087,37.319836 33.288087,38.319836 34.288087))";
 		Object visit = parseCql2(intersects);
 
@@ -90,15 +90,15 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof LineString);
-		assertEquals(((LineString) geometry).getControlPoints().size(), 3);
+		assertEquals(3, ((LineString) geometry).getControlPoints().size());
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_Polygon() throws UnknownCRSException {
+	void parse_s_intersects_polygon() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,POLYGON((36.319836 32.288087,37.319836 33.288087,38.319836 34.288087,36.319836 32.288087)))";
 		Object visit = parseCql2(intersects);
 
@@ -106,16 +106,16 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof Polygon);
-		assertEquals(((Polygon) geometry).getExteriorRing().getControlPoints().size(), 4);
-		assertEquals(((Polygon) geometry).getInteriorRings().size(), 0);
+		assertEquals(4, ((Polygon) geometry).getExteriorRing().getControlPoints().size());
+		assertEquals(0, ((Polygon) geometry).getInteriorRings().size());
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_MultiPoint() throws UnknownCRSException {
+	void parse_s_intersects_multi_point() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,MULTIPOINT((36.319836 32.288087),(37.319836 33.288087)))";
 		Object visit = parseCql2(intersects);
 
@@ -123,19 +123,19 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof MultiPoint);
-		assertEquals(((MultiPoint) geometry).size(), 2);
-		assertEquals(((MultiPoint) geometry).get(0).get(0), 36.319836, 0.0001);
-		assertEquals(((MultiPoint) geometry).get(0).get(1), 32.288087, 0.0001);
-		assertEquals(((MultiPoint) geometry).get(1).get(0), 37.319836, 0.0001);
-		assertEquals(((MultiPoint) geometry).get(1).get(1), 33.288087, 0.0001);
+		assertEquals(2, ((MultiPoint) geometry).size());
+		assertEquals(36.319836, ((MultiPoint) geometry).get(0).get(0), 0.0001);
+		assertEquals(32.288087, ((MultiPoint) geometry).get(0).get(1), 0.0001);
+		assertEquals(37.319836, ((MultiPoint) geometry).get(1).get(0), 0.0001);
+		assertEquals(33.288087, ((MultiPoint) geometry).get(1).get(1), 0.0001);
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_MultiLineString() throws UnknownCRSException {
+	void parse_s_intersects_multi_line_string() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,MULTILINESTRING((36.319836 32.288087,37.319836 33.288087,38.319836 34.288087),(46.319836 32.288087,47.319836 33.288087,48.319836 34.288087)))";
 		Object visit = parseCql2(intersects);
 
@@ -143,17 +143,17 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof MultiLineString);
-		assertEquals(((MultiLineString) geometry).size(), 2);
-		assertEquals(((MultiLineString) geometry).get(0).getControlPoints().size(), 3);
-		assertEquals(((MultiLineString) geometry).get(1).getControlPoints().size(), 3);
+		assertEquals(2, ((MultiLineString) geometry).size());
+		assertEquals(3, ((MultiLineString) geometry).get(0).getControlPoints().size());
+		assertEquals(3, ((MultiLineString) geometry).get(1).getControlPoints().size());
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_MultiPolygon() throws UnknownCRSException {
+	void parse_s_intersects_multi_polygon() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,MULTIPOLYGON(((36.319836 32.288087,37.319836 33.288087,38.319836 34.288087,36.319836 32.288087)),((46.319836 32.288087,47.319836 33.288087,48.319836 34.288087,46.319836 32.288087)))))";
 		Object visit = parseCql2(intersects);
 
@@ -161,19 +161,19 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof MultiPolygon);
-		assertEquals(((MultiPolygon) geometry).size(), 2);
-		assertEquals(((MultiPolygon) geometry).get(0).getExteriorRing().getControlPoints().size(), 4);
-		assertEquals(((MultiPolygon) geometry).get(0).getInteriorRings().size(), 0);
-		assertEquals(((MultiPolygon) geometry).get(1).getExteriorRing().getControlPoints().size(), 4);
-		assertEquals(((MultiPolygon) geometry).get(1).getInteriorRings().size(), 0);
+		assertEquals(2, ((MultiPolygon) geometry).size());
+		assertEquals(4, ((MultiPolygon) geometry).get(0).getExteriorRing().getControlPoints().size());
+		assertEquals(0, ((MultiPolygon) geometry).get(0).getInteriorRings().size());
+		assertEquals(4, ((MultiPolygon) geometry).get(1).getExteriorRing().getControlPoints().size());
+		assertEquals(0, ((MultiPolygon) geometry).get(1).getInteriorRings().size());
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_GeometryCollection() throws UnknownCRSException {
+	void parse_s_intersects_geometry_collection() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,GEOMETRYCOLLECTION(POINT(36.319836 32.288087),LINESTRING(36.319836 32.288087,37.319836 33.288087,38.319836 34.288087),POLYGON((36.319836 32.288087,37.319836 33.288087,38.319836 34.288087,36.319836 32.288087))))";
 		Object visit = parseCql2(intersects);
 
@@ -181,18 +181,18 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof MultiGeometry);
-		assertEquals(((MultiGeometry) geometry).size(), 3);
+		assertEquals(3, ((MultiGeometry) geometry).size());
 		assertTrue(((MultiGeometry) geometry).get(0) instanceof Point);
 		assertTrue(((MultiGeometry) geometry).get(1) instanceof LineString);
 		assertTrue(((MultiGeometry) geometry).get(2) instanceof Polygon);
 	}
 
 	@Test
-	public void test_parse_S_INTERSECTS_Bbox() throws UnknownCRSException {
+	void parse_s_intersects_bbox() throws UnknownCRSException {
 		String intersects = "S_INTERSECTS(geometry,BBOX(36.319836,32.288087,37.319836,33.288087))";
 		Object visit = parseCql2(intersects);
 
@@ -200,18 +200,18 @@ public class Cql2ParserTest {
 
 		Expression param1 = ((Intersects) visit).getParam1();
 		assertTrue(param1 instanceof ValueReference);
-		assertEquals(((ValueReference) param1).getAsText(), "geometry");
+		assertEquals("geometry", ((ValueReference) param1).getAsText());
 
 		Geometry geometry = ((Intersects) visit).getGeometry();
 		assertTrue(geometry instanceof Envelope);
-		assertEquals(((Envelope) geometry).getMin().get(0), 36.319836, 0.0001);
-		assertEquals(((Envelope) geometry).getMin().get(1), 32.288087, 0.0001);
-		assertEquals(((Envelope) geometry).getMax().get(0), 37.319836, 0.0001);
-		assertEquals(((Envelope) geometry).getMax().get(1), 33.288087, 0.0001);
+		assertEquals(36.319836, ((Envelope) geometry).getMin().get(0), 0.0001);
+		assertEquals(32.288087, ((Envelope) geometry).getMin().get(1), 0.0001);
+		assertEquals(37.319836, ((Envelope) geometry).getMax().get(0), 0.0001);
+		assertEquals(33.288087, ((Envelope) geometry).getMax().get(1), 0.0001);
 	}
 
 	@Test
-	public void test_parse_T_AFTER_date() throws UnknownCRSException {
+	void parse_t_after_date() throws UnknownCRSException {
 		String after = "T_AFTER(testDate,DATE('2025-04-14'))";
 		Object visit = parseCql2(after);
 
@@ -235,7 +235,7 @@ public class Cql2ParserTest {
 	}
 
 	@Test
-	public void test_parse_T_AFTER_timestamp() throws UnknownCRSException {
+	void parse_t_after_timestamp() throws UnknownCRSException {
 		String after = "T_AFTER(testDate,TIMESTAMP('2025-04-14T08:59:30Z'))";
 		Object visit = parseCql2(after);
 

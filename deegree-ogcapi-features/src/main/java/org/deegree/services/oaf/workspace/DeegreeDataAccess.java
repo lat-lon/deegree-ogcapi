@@ -133,7 +133,7 @@ public class DeegreeDataAccess implements DataAccess {
 
 		FeatureCollection features = feature.toCollection();
 		Optional<Feature> firstFeature = features.stream().findFirst();
-		if (!firstFeature.isPresent())
+		if (firstFeature.isEmpty())
 			throw new UnknownFeatureId(featureId);
 		return firstFeature.get();
 	}

@@ -294,8 +294,8 @@ public class OafResource implements Resource {
 
 		List<PropertyType> propertyDeclarations = featureType.getPropertyDeclarations();
 		propertyDeclarations.forEach(propertyDeclaration -> {
-			if (propertyDeclaration instanceof SimplePropertyType) {
-				PrimitiveType primitiveType = ((SimplePropertyType) propertyDeclaration).getPrimitiveType();
+			if (propertyDeclaration instanceof SimplePropertyType type) {
+				PrimitiveType primitiveType = type.getPrimitiveType();
 				BaseType baseType = primitiveType.getBaseType();
 				QName propertyName = propertyDeclaration.getName();
 				filterProperties.add(new FilterProperty(propertyName, baseType));
