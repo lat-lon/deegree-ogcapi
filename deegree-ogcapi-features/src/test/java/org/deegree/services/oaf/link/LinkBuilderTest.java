@@ -112,8 +112,7 @@ class LinkBuilderTest {
 		if (enclosureLinksEnabled != null) {
 			System.setProperty(PARAMETER_ENCLOSURE_LINKS_ENABLED, enclosureLinksEnabled);
 		}
-		boolean includeEnclosureLinks = enclosureLinksEnabled == null
-				|| Boolean.parseBoolean(enclosureLinksEnabled);
+		boolean includeEnclosureLinks = enclosureLinksEnabled == null || Boolean.parseBoolean(enclosureLinksEnabled);
 		String uri = "http://localhost:8081/deegree-services-oaf/datasets/oaf/collections";
 		String path = "datasets/oaf/collections";
 
@@ -153,8 +152,7 @@ class LinkBuilderTest {
 		if (enclosureLinksEnabled != null) {
 			System.setProperty(PARAMETER_ENCLOSURE_LINKS_ENABLED, enclosureLinksEnabled);
 		}
-		boolean includeEnclosureLinks = enclosureLinksEnabled == null
-				|| Boolean.parseBoolean(enclosureLinksEnabled);
+		boolean includeEnclosureLinks = enclosureLinksEnabled == null || Boolean.parseBoolean(enclosureLinksEnabled);
 		String uri = "http://localhost:8081/deegree-services-oaf/datasets/oaf/collections/strassenbaumkataster";
 		String path = "datasets/oaf/collections/strassenbaumkataster";
 
